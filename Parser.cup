@@ -1,1 +1,38 @@
-Parser.cup
+import java_cup.runtime.Symbol;
+
+/* Preliminaries to use the scanner. */
+scan with {: return lexer.next_token(); :};
+parser code {: Lexer lexer;
+public ExprParser(ExprLex lex) { super(lex); lexer = lex;} :};
+
+/*Lexer Tokens*/
+
+terminal ADD, SUB, SLT, XOR  
+terminal ADDI, BEQ, SB, LB
+terminal JUMP, RAND
+terminal DISP
+terminal HALT
+terminal DOT_TEXT
+terminal RPAREN, LPAREN
+terminal COLON
+terminal COMMA
+terminal RO, R1, R2, R3
+terminal ID
+terminal INT
+
+/*Non Terminals*/
+non terminal line_list;
+non terminal Integer line;
+non terminal Integer expr;
+
+
+/*Precedences*/
+
+
+start with line_list;
+
+line_list ::= line_list:list line
+			| 
+			;
+line ::= expr:result EOL
+		{: System.out.println()}

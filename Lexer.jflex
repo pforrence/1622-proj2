@@ -80,11 +80,11 @@ WhiteSpace = {LineBreak} | [ \t\f]
 "addi" {return symbol(ADDI, "Itype");}
 "beq" {return symbol(BEQ, "Itype");}
 "xor" {return symbol(XOR, "Rtype");}
-"sb" {return symbol(SB, "Rtype");}
+"sb" {return symbol(SB, "Itype");}
 "j" {return symbol(JUMP, "Jtype");}
 "lb" {return symbol(LB, "Itype");}
 "rand" {return symbol(RAND, "Jtype");}
-"disp" {return symbol(DISP, "type");}
+"disp" {return symbol(DISP, "Dtype");}
 "halt" {return symbol(HALT, "Htype");}
 ".text" {return symbol(DOT_TEXT);}
 ")" {return symbol(RPAREN);}
