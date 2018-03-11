@@ -74,27 +74,27 @@ WhiteSpace = {LineBreak} | [ \t\f]
 %% 
 
 {Comment} {/*Do Nothing*/}
-"add" {return symbol(ADD, "Rtype");}
-"sub" {return symbol(SUB, "Rtype");}
-"slt" {return symbol(SLT, "Rtype");}
-"addi" {return symbol(ADDI, "Itype");}
-"beq" {return symbol(BEQ, "Itype");}
-"xor" {return symbol(XOR, "Rtype");}
-"sb" {return symbol(SB, "Itype");}
-"j" {return symbol(JUMP, "Jtype");}
-"lb" {return symbol(LB, "Itype");}
-"rand" {return symbol(RAND, "Jtype");}
-"disp" {return symbol(DISP, "Dtype");}
-"halt" {return symbol(HALT, "Htype");}
+"add" {return symbol(ROP, "ADD");}
+"sub" {return symbol(ROP, "SUB");}
+"slt" {return symbol(ROP, "SLT");}
+"addi" {return symbol(IOP, "ADDI");}
+"beq" {return symbol(IOP, "BEQ");}
+"xor" {return symbol(ROP, "XOR");}
+"sb" {return symbol(IOPM, "SB");}
+"j" {return symbol(JOP, "JUMP");}
+"lb" {return symbol(IOPM, "LB");}
+"rand" {return symbol(JOP, "RAND");}
+"disp" {return symbol(DOP, "DISP");}
+"halt" {return symbol(HOP, "HALT");}
 ".text" {return symbol(DOT_TEXT);}
 ")" {return symbol(RPAREN);}
 "(" {return symbol(LPAREN);}
 ":" {return symbol(COLON);}
 "," {return symbol(COMMA);}
-"$R0" {return symbol(R0);}
-"$R1" {return symbol(R1);}
-"$R2" {return symbol(R2);}
-"$R3" {return symbol(R3);}
+"$R0" {return symbol(REG);}
+"$R1" {return symbol(REG);}
+"$R2" {return symbol(REG);}
+"$R3" {return symbol(REG);}
 {Identifier} {return symbol(ID, yytext());}
 {Hex_Int} {return symbol(INT, Integer.decode(yytext()));}
 {Int} {return symbol(INT, Integer.parseInt(yytext()));}

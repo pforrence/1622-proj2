@@ -3,36 +3,63 @@ import java_cup.runtime.Symbol;
 /* Preliminaries to use the scanner. */
 scan with {: return lexer.next_token(); :};
 parser code {: Lexer lexer;
-public ExprParser(ExprLex lex) { super(lex); lexer = lex;} :};
+public ExprParser(Lexer lex) { super(lex); lexer = lex;} :};
 
 /*Lexer Tokens*/
 
 terminal ADD, SUB, SLT, XOR  
+terminal ROP
 terminal ADDI, BEQ, SB, LB
+terminal IOP
 terminal JUMP, RAND
+terminal JOP
 terminal DISP
+terminal DOP
 terminal HALT
+terminal JOP
 terminal DOT_TEXT
 terminal RPAREN, LPAREN
 terminal COLON
 terminal COMMA
 terminal RO, R1, R2, R3
 terminal ID
-terminal INT
+terminal Integer INT
 
 /*Non Terminals*/
-non terminal line_list;
-non terminal Integer line;
-non terminal Integer expr;
+non terminal program;
+non terminal Integer instruction_list;
+non terminal Integer label_inst;
+non terminal Integer instruction;
 
 
 /*Precedences*/
 
+start with program;
 
-start with line_list;
 
-line_list ::= line_list:list line
+/* The grammar */
+program ::= DOT_TEXT instruction_list
 			| 
 			;
-line ::= expr:result EOL
-		{: System.out.println()}
+
+
+instruction_list ::= label_inst instruction_list | ;
+label_inst ::=  instruction 
+                | ID:imm COLON instruction 
+                {: System.out.println(imm.value() + ":"); :}
+                ;
+
+instruction ::= ROP:op REG:rd REG:rs REG:rt
+                {: System.out.println(op.value() + rd.value()+" "+rs.value()+" "+rt.value); :}
+                | IOP:op REG:rt REG:rs INT:imm
+                | IOPM:op REG:rt LPAREN REG:rs RPAREN
+                | JOP:op ID:imm
+                | DOP:op REG:rs
+                | HOP:op
+                ;
+
+ //maybe make registers have a "type" register
+ //... just do it on paper first
+
+ //or make it so opcodes can be followed different patterns
+ // in other words break it down one level further
