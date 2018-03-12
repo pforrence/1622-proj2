@@ -4,13 +4,29 @@ public class Instruction
 	private String op;
 	private int rd, rs, rt;
 	private String immediate;
-	public String getImmediate()
-	{
-		return immediate;
-	}
 	public int getType()
 	{
 		return type;
+	}
+	public String getOp()
+	{
+		return op;
+	}
+	public int getRd()
+	{
+		return rd;
+	}
+	public int getRs()
+	{
+		return rs;
+	}
+	public int getRt()
+	{
+		return rt;
+	}
+	public String getImmediate()
+	{
+		return immediate;
 	}
 	public Instruction(String protoInstruction)
 	{
@@ -69,7 +85,7 @@ public class Instruction
 	private void dtype(String[] strArray)
 	{
 		type = 4;
-		immediate = strArray[1];
+		rs = Integer.parseInt(strArray[1]);
 	}
 	private void htype(String[] strArray)
 	{
@@ -92,9 +108,10 @@ public class Instruction
 			returnString.append(" " + rt + " " + immediate + " " + rs);
 		else if (type == 3)
 			returnString.append(" " + immediate);
-		else if (type == 5)
+		else if (type == 4)
+			returnString.append(" " + rs);
+		else if (type == 6)
 			returnString.append(" " + rt + " " + rs);
-
 		return returnString.toString();
 	}
 }

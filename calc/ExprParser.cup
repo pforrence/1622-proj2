@@ -45,17 +45,18 @@ program ::= DOT_TEXT instruction_list:p
 
 
 instruction_list ::= label_inst:i instruction_list:il
-			{: RESULT = il; il.add(i); size ++; 
+			{: RESULT = il; il.add(i); 
 			:}
 			|
 			{: RESULT = new ArrayList<Instruction>(0); :}
 			;
 
 label_inst ::=  instruction:result
-                {: System.out.println(result); RESULT = new Instruction(result); :}
+                {: size++; System.out.println(result); RESULT = new Instruction(result); :}
                 | ID:imm COLON instruction:result
-                {: System.out.println(imm + ": " + result);
-                	labelTable.put(imm.toString(),size++);
+                {:System.out.println(imm + ": " + result);
+                	labelTable.put(imm.toString(), size);
+                  size++;
                  RESULT = new Instruction(result); :}
                 ;
 

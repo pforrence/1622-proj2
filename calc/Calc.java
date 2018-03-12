@@ -21,18 +21,78 @@ public class Calc {
 			System.out.println("\nParse List: ");
 			ArrayList<Instruction> list = (ArrayList<Instruction>)parse_tree.value;
 			
+			Random rand = new Random();
+
+
+
+			byte[] reg = new byte[4]; 
+			byte[] rAM = new byte[256];
+
 			/*Execution Phase */
 			for (int i = list.size()-1; i >= 0; i--)
 			{
 				Instruction temp = list.get(i);
 				System.out.println(temp.toString());
-				if (temp.getType() == 3)
+				int type = temp.getType();
+				/*Rtype*/
+				if (type == 0)
 				{
-					// System.out.println(list.size()+2 -);
-				    i = list.size() - labelTable.get(temp.getImmediate());
-					System.out.println(i);
+					if (temp.getOp().equals("add"))
+						reg[temp.getRd()] = (byte)(reg[temp.getRs()] + reg[temp.getRt()]);
+					else if (temp.getOp().equals("sub"))
+						reg[temp.getRd()] = (byte)(reg[temp.getRs()] - reg[temp.getRt()]);
+					else if (temp.getOp().equals("slt"))
+					{
+						reg[temp.getRd()] = (byte)0;	
+						if (reg[temp.getRs()] < reg[temp.getRt()])
+						   reg[temp.getRd()] = (byte)1;	
+					}		
+	                else if (temp.getOp().equals("xor"))
+						reg[temp.getRd()] = (byte)(reg[temp.getRs()] ^ reg[temp.getRt()]);			
 				}
+				/*Itype*/
+				else if (type == 1)
+				{
+					if (temp.getOp().equals("addi"))
+						reg[temp.getRt()] = (byte)(reg[temp.getRs()] + Integer.parseInt(temp.getImmediate()));
+					if (temp.getOp().equals("beq"))
+					{
+						if (reg[temp.getRs()] == reg[temp.getRt()])
+							i = list.size() - labelTable.get(temp.getImmediate());
 
+					}
+
+				}
+				/*IMtype*/
+	            else if (type == 2)
+	            {
+					if (temp.getOp().equals("lb"))
+						reg[temp.getRt()] = 
+					        (byte)(rAM[reg[temp.getRs()]+Integer.parseInt(temp.getImmediate())]);
+					else if (temp.getOp().equals("sb"))
+						rAM[reg[temp.getRs()]+Integer.parseInt(temp.getImmediate())] = (byte)(reg[temp.getRt()]);
+
+	            }
+				/* Jtype */
+				else if (type == 3)
+				{
+				    i = list.size() - labelTable.get(temp.getImmediate());
+				}
+				/*Dtype*/
+		        else if (type == 4)
+		        {
+		        	System.out.println("Register_"+temp.getRs()+": "+ String.format("0x%02X", reg[temp.getRs()]));
+		        }
+				/*Htype*/
+				else if (type == 5)
+				{
+					System.exit(0);
+				}
+				/*Raotype*/
+				else if (type == 6)
+				{
+					reg[temp.getRt()] = (byte)rand.nextInt(reg[temp.getRs()]);
+				}
 			}
 		} catch (IOException e) {
 			System.err.println("ERROR: Unable to open file: " + args[0]);
