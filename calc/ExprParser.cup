@@ -64,6 +64,8 @@ instruction ::= ROP:op  REG:rd COMMA REG:rs COMMA REG:rt
 {: RESULT = new String(op+" " + rd+" "+rs+" "+rt); :}
                 | IOP:op REG:rt COMMA REG:rs COMMA INT:imm
                 {: RESULT = new String(op+" " + rt+" "+rs+" "+imm); :}
+                | IOP:op REG:rt COMMA REG:rs COMMA ID:imm
+                {: RESULT = new String(op+" " + rt+" "+rs+" "+imm); :}
                 | IOPM:op REG:rt COMMA INT:imm LPAREN REG:rs RPAREN
                 {: RESULT = new String(op +" "+rt+" "+ imm +" "+rs); :}
                 | JOP:op ID:imm

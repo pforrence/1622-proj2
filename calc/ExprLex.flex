@@ -47,10 +47,10 @@ WhiteSpace = {LineBreak} | [ \t\f]
 "(" {return new Symbol(LPAREN, yyline+1, yycolumn+1); }
 ":" {return new Symbol(COLON, yyline+1, yycolumn+1); }
 "," {return new Symbol(COMMA, yyline+1, yycolumn+1); }
-"$R0" {return new Symbol(REG, yyline+1, yycolumn+1, "0");}
-"$R1" {return new Symbol(REG, yyline+1, yycolumn+1, "1");}
-"$R2" {return new Symbol(REG, yyline+1, yycolumn+1, "2");}
-"$R3" {return new Symbol(REG, yyline+1, yycolumn+1, "3");}
+"$r0" {return new Symbol(REG, yyline+1, yycolumn+1, "0");}
+"$r1" {return new Symbol(REG, yyline+1, yycolumn+1, "1");}
+"$r2" {return new Symbol(REG, yyline+1, yycolumn+1, "2");}
+"$r3" {return new Symbol(REG, yyline+1, yycolumn+1, "3");}
 {Identifier} {return new Symbol(ID, yyline+1, yycolumn+1, yytext());}
 {Hex_Int} {return new Symbol(INT, yyline+1, yycolumn+1,  new Integer(Integer.decode(yytext())));}
 {Int} {return new Symbol(INT, yyline+1, yycolumn+1, Integer.parseInt(yytext()));}
