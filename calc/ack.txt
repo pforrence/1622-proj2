@@ -1,0 +1,6 @@
+.text
+add $R0, $R1, $R2
+add $R0, $R1, $R0
+sub $R0, $R1, $R3
+addi $R0, $R1, 0x20
+j label2

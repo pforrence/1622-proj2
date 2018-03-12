@@ -1,0 +1,12 @@
+.text
+
+label2: OPCODE $R0, $R1, 0x20
+
+     j label2
+
+# this is a comment
+
+add $R0, $R1, $R0
+sub $R0, $R1, $R3
+addi $R0, $R1, 0x20
+j label2
