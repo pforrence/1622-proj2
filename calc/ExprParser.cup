@@ -52,9 +52,9 @@ instruction_list ::= label_inst:i instruction_list:il
 			;
 
 label_inst ::=  instruction:result
-                {: size++; System.out.println(result); RESULT = new Instruction(result); :}
+                {: size++; /*System.out.println(result);*/ RESULT = new Instruction(result); :}
                 | ID:imm COLON instruction:result
-                {:System.out.println(imm + ": " + result);
+                {:/*System.out.println(imm + ": " + result);*/
                 	labelTable.put(imm.toString(), size);
                   size++;
                  RESULT = new Instruction(result); :}

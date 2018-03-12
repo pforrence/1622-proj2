@@ -2,11 +2,11 @@ import java_cup.runtime.Symbol;
 import java.io.*;
 import java.util.*;
 
-public class Calc {
+public class Interpreter {
 	public static void main(String[] args) {
 		if(args.length != 1) {
 			System.err.println("ERROR: Invalid number of command line arguments.");
-			System.err.println("Usage: java Calc file.asm");
+			System.err.println("Usage: java Interpreter file.asm");
 			System.exit(1);
 		}
 		Symbol parse_tree = null;
@@ -15,10 +15,10 @@ public class Calc {
 			ExprParser parser_obj = new ExprParser(new ExprLex(new FileInputStream(args[0])));
 			parse_tree = parser_obj.parse();
 
-			System.out.println(CUP$ExprParser$actions.labelTable);
+			// System.out.println(CUP$ExprParser$actions.labelTable);
 			Hashtable<String, Integer> labelTable= CUP$ExprParser$actions.labelTable;
 
-			System.out.println("\nParse List: ");
+			// System.out.println("\nParse List: ");
 			ArrayList<Instruction> list = (ArrayList<Instruction>)parse_tree.value;
 			
 			Random rand = new Random();
@@ -32,7 +32,7 @@ public class Calc {
 			for (int i = list.size()-1; i >= 0; i--)
 			{
 				Instruction temp = list.get(i);
-				System.out.println(temp.toString());
+				// System.out.println(temp.toString());
 				int type = temp.getType();
 				/*Rtype*/
 				if (type == 0)
